@@ -72,7 +72,9 @@ class DoublyLinkedList:
     Returns the value of the removed Node."""
 
     def remove_from_head(self):
-        pass
+        value = self.head.value
+        self.delete(self.head)
+        return value
 
     """Wraps the given value in a ListNode and inserts it 
     as the new tail of the list. Don't forget to handle 
@@ -80,14 +82,14 @@ class DoublyLinkedList:
 
     def add_to_tail(self, value):
         new_node = ListNode(value, None, None)
-        self. length += 1
+        self.length += 1
         # If the list is empty
         if not self.head and not self.tail:
             self.head = new_node
             self.tail = new_node
         else:
             new_node.prev = self.tail
-            self.tail.nex = new_node
+            self.tail.next = new_node
             self.tail = new_node
 
     """Removes the List's current tail node, making the 
@@ -95,19 +97,29 @@ class DoublyLinkedList:
     Returns the value of the removed Node."""
 
     def remove_from_tail(self):
-        pass
+        value = self.tail.value
+        self.delete(self.tail)
+        return value
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List."""
 
     def move_to_front(self, node):
-        pass
+        if node is self.head:
+            return
+        value = node.value
+        self.delete(node)
+        self.add_to_head(value)
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new tail node of the List."""
 
     def move_to_end(self, node):
-        pass
+        if node is self.tail:
+            return
+        value = node.value
+        self.delete(node)
+        self.add_to_tail(value)
 
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
@@ -116,7 +128,7 @@ class DoublyLinkedList:
         if not self.head and not self.tail:
             # TOD: This probably shouldn't happen, handle error
             return
-        self.lentgth - + 1
+        self.length -= 1
         if self.head is self.tail:  # is and == mean the same
             self.head = None
             self.tail = None
@@ -132,4 +144,10 @@ class DoublyLinkedList:
     """Returns the highest value currently in the list"""
 
     def get_max(self):
-        pass
+        current = self.head
+        max_value = current.value
+        while current is not None:
+            if current.value > max_value:
+                max_value = current.value
+            current = current.next
+        return max_value
