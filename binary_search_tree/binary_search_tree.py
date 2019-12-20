@@ -1,5 +1,6 @@
-#from dll_stack import Stack
-#from dll_queue import Queue
+from dll_stack import Stack
+from dll_queue import Queue
+from doubly_linked_list import DoublyLinkedList
 import sys
 sys.path.append('../queue_and_stack')
 
@@ -61,17 +62,57 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        if node == None:
+            return
+        # if self.left:
+        self.in_order_print(node.left)
+        # else:
+        print(node.value)
+        # if self.right:
+        self.in_order_print(node.right)
+        # pass
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
+
     def bft_print(self, node):
-        pass
+        queue = Queue()
+        queue.enqueue(node)
+
+        while queue.len() > 0:
+            current = queue.dequeue()
+            print(current.value)
+            if current.left:
+                queue.enqueue(current.left)
+            if current.right:
+                queue.enqueue(current.right)
+
+    # Print the value of every node, starting with the given node,
+    # in an iterative depth first traversal
+
+    # create stack - use dll_stack
+    # push start node to stack
+    # while stack > 0:
+    #     pop top item in stack
+    #     do the thing!
+    #     if left
+    #         add left
+    #     if right
+    #          add right
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        stack = Stack()
+        stack.push(node)
+
+        while stack.len() > 0:
+            current = stack.pop()
+            print(current.value)
+            if current.left:
+                stack.push(current.left)
+            if current.right:
+                stack.push(current.right)
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
